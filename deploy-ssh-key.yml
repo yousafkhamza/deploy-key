@@ -1,0 +1,34 @@
+---
+- name: Creating key on multiple location
+  hosts: localhost
+  vars_files:
+  - cred.vars
+  vars:
+    key_name: "id_rsa"
+  tasks:
+
+  - name: "Creating New SSH-Kay Meterial"
+    run_once: True
+    openssh_keypair:
+        path: "{{ key_name }}"
+        type: rsa
+        size: 4096
+        state: present
+
+  - name: "Renaming Local Private Key" 
+    run_once: True
+    delegate_to: localhost
+    shell: "mv ./{{ key_name }}  ./{{ key_name }}.pem"
+        
+  - name: "Creating Key pair"
+    ec2_key:
+      access_key: "{{access_key}}"
+      secret_key: "{{secret_key}}"
+      region: "{{item}}"
+      name: "{{key_name}}"
+      key_material: "{{ lookup('file', './{{key_name}}.pub') }}"
+      state: present
+    with_items:
+    - ap-south-1
+    - us-east-2
+    - us-west-2
