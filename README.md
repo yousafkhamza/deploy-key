@@ -91,6 +91,10 @@ secret_key: "<Your secret key>"
 ## Additional Reference 
 AWS Region List. [Region List](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
 
+## Architacture
+- _Architacture_
+![alt text](https://i.ibb.co/B23ZqwR/strucutre.jpg)
+
 ---
 # Conclusion
 The playbook's actual working is like deploying the same SSH key to all or multiple regions. So, then whether we can use the same key which we used regions so no need to store multiple keys.
