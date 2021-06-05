@@ -93,6 +93,7 @@ AWS Region List. [Region List](https://docs.aws.amazon.com/AmazonRDS/latest/User
 
 ## Architacture
 - _Architacture_
+
 ![alt text](https://i.ibb.co/B23ZqwR/strucutre.jpg)
 
 ---
