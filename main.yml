@@ -2,7 +2,7 @@
 - name: Creating key on multiple location
   hosts: localhost
   vars_files:
-  - cred.vars
+    - cred.vars
   vars:
     key_name: "id_rsa"
   tasks:
