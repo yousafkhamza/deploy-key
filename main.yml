@@ -6,29 +6,66 @@
   vars:
     key_name: "id_rsa"
   tasks:
-
-  - name: "Creating New SSH-Kay Meterial"
-    run_once: True
-    openssh_keypair:
-        path: "{{ key_name }}"
-        type: rsa
-        size: 4096
+  # ---------------------------------------------------------
+  # Dependancy Tasks
+  # ---------------------------------------------------------
+    - name: "Dependancy Tasks 01-Install PIP"
+      yum:
+        name: pip
         state: present
 
-  - name: "Renaming Local Private Key" 
-    run_once: True
-    delegate_to: localhost
-    shell: "mv ./{{ key_name }}  ./{{ key_name }}.pem"
+    - name: "Depandancy Task 02-Install setuptools"
+      pip:
+        name: setuptools
+        state: present
+
+    - name: "Depandancy Task 03-Install virtualenv"
+      pip:
+        name: virtualenv
+        state: present
+
+    - name: "Depandancy Task 04-Install boto"
+      pip:
+        name: boto
+        state: present
+
+    - name: "Depandancy Task 05-Install boto3"
+      ignore_errors: true
+      pip:
+        name: boto3
+        state: present
+
+    - name: "Depandancy Task 06-Install botocore"
+      pip:
+        name: botocore
+        state: present
         
-  - name: "Creating Key pair"
-    ec2_key:
-      access_key: "{{access_key}}"
-      secret_key: "{{secret_key}}"
-      region: "{{item}}"
-      name: "{{key_name}}"
-      key_material: "{{ lookup('file', './{{key_name}}.pub') }}"
-      state: present
-    with_items:
-    - ap-south-1
-    - us-east-2
-    - us-west-2
+  # ---------------------------------------------------------
+  # Lets Start the Task
+  # ---------------------------------------------------------
+  
+    - name: "Creating New SSH-Kay Meterial"
+      run_once: True
+      openssh_keypair:
+          path: "{{ key_name }}"
+          type: rsa
+          size: 4096
+          state: present
+
+    - name: "Renaming Local Private Key" 
+      run_once: True
+      delegate_to: localhost
+      shell: "mv ./{{ key_name }}  ./{{ key_name }}.pem"
+          
+    - name: "Creating Key pair"
+      ec2_key:
+        access_key: "{{access_key}}"
+        secret_key: "{{secret_key}}"
+        region: "{{item}}"
+        name: "{{key_name}}"
+        key_material: "{{ lookup('file', './{{key_name}}.pub') }}"
+        state: present
+      with_items:
+        - ap-south-1
+        - us-east-2
+        - us-west-2
