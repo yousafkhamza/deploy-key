@@ -100,9 +100,6 @@ AWS Region List. [Region List](https://docs.aws.amazon.com/AmazonRDS/latest/User
 # Conclusion
 The playbook's actual working is like deploying the same SSH key to all or multiple regions. So, then whether we can use the same key which we used regions so no need to store multiple keys.
 
-_By_
-_Yousaf K Hamza_
-
 <p align="center">
 <a href="mailto:yousaf.k.hamza@gmail.com"><img src="https://img.shields.io/badge/-yousaf.k.hamza@gmail.com-D14836?style=flat&logo=Gmail&logoColor=white"/></a>
 <a href="https://www.linkedin.com/in/yousafkhamza"><img src="https://img.shields.io/badge/-Linkedin-blue"/></a>
